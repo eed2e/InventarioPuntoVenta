@@ -1,21 +1,6 @@
 <footer class="footer">
   <div class=" container-fluid ">
-    <nav>
-      <ul>
-        <li>
-          <a href="https://">
-            Síguenos en Facebook
-          </a>
-        </li>
-        <li>
-          <a href="https://instagram.com/vida_informatico/">
-            Síguenos en Instagram
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <div class="copyright" id="copyright">
-      <p>Vida Informático</p>
+    
      </div>
   </div>
 </footer>

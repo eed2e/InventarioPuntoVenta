@@ -52,16 +52,16 @@ if ($result_data > 0) {
 
 <body class="">
 	<div class="wrapper ">
-		<div class="sidebar" data-color="orange">
+		<div class="sidebar" data-color=#ffffff>
 			<!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
 			<div class="logo">
 				<a href="index.php" class="simple-text logo-mini">
-					V - I
+					.
 				</a>
 				<a href="index.php" class="simple-text logo-normal">
-					Vida Informático
+				DigitalNet
 				</a>
 			</div>
 			<div class="sidebar-wrapper" id="sidebar-wrapper">
@@ -90,19 +90,19 @@ if ($result_data > 0) {
 							<p>Usuarios</p>
 						</a>
 					</li>
-					<li>
+					<!--<li>
 						<a href="lista_proveedor.php">
 							<i class="now-ui-icons design_bullet-list-67"></i>
 							<p>Proveedor</p>
 						</a>
-					</li>
+					</li>-->
 
 				</ul>
 			</div>
 		</div>
 		<div class="main-panel" id="main-panel">
 			<!-- Navbar -->
-			<nav class="navbar navbar-expand-lg navbar-dark  bg-primary  navbar-absolute">
+			<nav class="navbar navbar-expand-lg navbar-dark  bg-secondary  navbar-absolute">
 				<div class="container-fluid">
 					<div class="navbar-wrapper">
 						<div class="navbar-toggle">
@@ -130,24 +130,11 @@ if ($result_data > 0) {
 									</p>
 								</a>
 								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" href="#"><?php echo $_SESSION['user']; ?></a>
-									<?php if ($_SESSION['rol'] == 1) {
-										$rol = "Administrador";
-									} else {
-										$rol = "Vendedor";
-									} ?>
-									<a class="dropdown-item" href="#"><?php echo $rol; ?></a>
+									
 									<a class="dropdown-item" href="salir.php">Salir</a>
 								</div>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#pablo">
-									<i class="now-ui-icons users_single-02"></i>
-									<p>
-										<span class="d-lg-none d-md-block">Cuenta</span>
-									</p>
-								</a>
-							</li>
+							
 						</ul>
 					</div>
 				</div>

@@ -4,14 +4,14 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h5>Productos</h5>
-				<a href="registro_producto.php" class="btn btn-primary">Nuevo</a>
+				<a href="registro_producto.php" class="btn btn-warning">Nuevo</a>
 				<div class="table-responsive">
 					<table class="table table-striped table-bordered" id="table">
 						<thead class="thead-dark">
 							<tr>
 								<th>ID</th>
 								<th>PRODUCTO</th>
-								<th>PRECIO</th>
+								
 								<th>STOCK</th>
 								<?php if ($_SESSION['rol'] == 1) { ?>
 									<th>ACCIONES</th>
@@ -29,7 +29,7 @@
 									<tr>
 										<td><?php echo $data['codproducto']; ?></td>
 										<td><?php echo $data['descripcion']; ?></td>
-										<td><?php echo $data['precio']; ?></td>
+										
 										<td><?php echo $data['existencia']; ?></td>
 										<?php if ($_SESSION['rol'] == 1) { ?>
 											<td>
