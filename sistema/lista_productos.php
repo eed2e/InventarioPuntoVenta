@@ -10,6 +10,7 @@
 						<thead class="thead-dark">
 							<tr>
 								<th>ID</th>
+								<th>Imagen</th>
 								<th>PRODUCTO</th>
 								
 								<th>STOCK</th>
@@ -28,14 +29,13 @@
 								while ($data = mysqli_fetch_assoc($query)) { ?>
 									<tr>
 										<td><?php echo $data['codproducto']; ?></td>
+                                        <td><img width="130px" height="110px" src =" <?php echo $data['imagen'] ?> "></td>
 										<td><?php echo $data['descripcion']; ?></td>
 										
 										<td><?php echo $data['existencia']; ?></td>
 										<?php if ($_SESSION['rol'] == 1) { ?>
 											<td>
 												<a href="agregar_producto.php?id=<?php echo $data['codproducto']; ?>" class="btn btn-primary"><i class='fas fa-audio-description'></i></a>
-
-												<a href="editar_producto.php?id=<?php echo $data['codproducto']; ?>" class="btn btn-success"><i class='fas fa-edit'></i></a>
 
 												<form action="eliminar_producto.php?id=<?php echo $data['codproducto']; ?>" method="post" class="confirmar d-inline">
 													<button class="btn btn-danger" type="submit"><i class='fas fa-trash-alt'></i> </button>
