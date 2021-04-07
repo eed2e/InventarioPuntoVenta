@@ -7,12 +7,25 @@
                 Todo los campos son obligatorios
               </div>';
     } else {
+        $tips = 'jpg';
+        $type = array ('image/jpg' => 'jpg');
+        $id = $_POST['producto'];
+        
+        $nombrefoto1 = $_FILES['image']['name'];
+        $ruta1 = $_FILES['image']['tmp_name'];
+        $name = $id.'.'.$tips;
+        if(is_uploaded_file($ruta1)){
+            $destino = "imagenes_inv/".$name;
+            copy($ruta1,$destino);
+        }
+        
       $producto = $_POST['producto'];
       $cantidad = $_POST['cantidad'];
       $usuario_id = $_SESSION['idUser'];
 
-      $query_insert = mysqli_query($conexion, "INSERT INTO producto(descripcion,existencia,usuario_id) values ( '$producto','$cantidad','$usuario_id')");
-      if ($query_insert) {
+      $query_insert = mysqli_query($conexion, "INSERT INTO producto(descripcion,existencia,usuario_id,imagen) values ( '$producto','$cantidad','$usuario_id','$destino')");
+    
+        if ($query_insert) {
         $alert = '<div class="alert alert-primary" role="alert">
                 Producto Registrado
               </div>';
@@ -23,8 +36,8 @@
       }
     }
   }
-  ?>
 
+  ?>
  <!-- Begin Page Content -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
  <div class="content">
@@ -38,15 +51,15 @@
    <!-- Content Row -->
    <div class="row">
      <div class="col-lg-6 m-auto">
-       <form action="" method="post" autocomplete="off">
+       <form action="" method="post" autocomplete="off" enctype="multipart/form-data">
          <?php echo isset($alert) ? $alert : ''; ?>
          <div class="form-group">
+             
             <div style="width: 200px"> <!-- this div just for demo display -->
                 <label class="dropimage miniprofile">
-                    <input name="filea" title="Drop image or click me" type="file">
+                    <input name="image" title="Drop image or click me" type="file" id="imagen">
                 </label>
              </div>
-
          <div class="form-group">
            <label for="producto">Producto</label>
            <input type="text" placeholder="Ingrese nombre del producto" name="producto" id="producto" class="form-control">
@@ -56,7 +69,7 @@
            <label for="cantidad">Cantidad</label>
            <input type="number" placeholder="Ingrese cantidad" class="form-control" name="cantidad" id="cantidad">
          </div>
-         <input type="submit" value="Guardar Producto" class="btn btn-primary">
+         <input type="submit" value="Guardar Producto" class="btn btn-primary" name="subir" id="subir">
            </div>
        </form>
      </div>
