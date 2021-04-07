@@ -25,26 +25,24 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE PROCEDURE `actualizar_precio_producto` (IN `n_cantidad` INT, IN `n_precio` DECIMAL(10,2), IN `codigo` INT)  BEGIN
+CREATE PROCEDURE `actualizar_precio_producto` (IN `n_cantidad` INT,  IN `codigo` INT)  BEGIN
 DECLARE nueva_existencia int;
-DECLARE nuevo_total decimal(10,2);
-DECLARE nuevo_precio decimal(10,2);
+
 
 DECLARE cant_actual int;
-DECLARE pre_actual decimal(10,2);
+
 
 DECLARE actual_existencia int;
-DECLARE actual_precio decimal(10,2);
 
-SELECT precio, existencia INTO actual_precio, actual_existencia FROM producto WHERE codproducto = codigo;
+
+SELECT  existencia INTO actual_existencia FROM producto WHERE codproducto = codigo;
 
 SET nueva_existencia = actual_existencia + n_cantidad;
-SET nuevo_total = n_precio;
-SET nuevo_precio = nuevo_total;
 
-UPDATE producto SET existencia = nueva_existencia, precio = nuevo_precio WHERE codproducto = codigo;
 
-SELECT nueva_existencia, nuevo_precio;
+UPDATE producto SET existencia = nueva_existencia WHERE codproducto = codigo;
+
+SELECT nueva_existencia;
 END$$
 
 CREATE PROCEDURE `add_detalle_temp` (`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50))  BEGIN
