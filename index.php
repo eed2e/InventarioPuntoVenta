@@ -25,7 +25,7 @@ if (!empty($_SESSION['active'])) {
         $_SESSION['user'] = $dato['usuario'];
         $_SESSION['rol'] = $dato['idrol'];
         $_SESSION['rol_name'] = $dato['rol'];
-        header('location: sistema/');
+        header('location: sistema/lista_productos.php');
       } else {
         $alert = '<div class="alert alert-danger" role="alert">
               Usuario o Contraseña Incorrecta
@@ -53,23 +53,31 @@ if (!empty($_SESSION['active'])) {
   <link href="sistema/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
   <link href="sistema/css/sb-admin-2.min.css" rel="stylesheet">
-
+  
+  <style type="text/css">
+  body {
+  background-image: url("sistema/img/logo1.jpg");
+  
+}
+</style>
 </head>
 
-<body class="bg-gradient-primary">
+<body >
 
   <div class="container">
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
+
+    
+    <div class="row justify-content-center ">
 
       <div class="col-xl-10 col-lg-12 col-md-9">
 
-        <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card o-hidden border-4 shadow-lg my-5">
+        
           <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
+
             <div class="row">
               <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                <img src="sistema/img/logo.jpg" class="img-thumbnail">
+                <!--<img src="sistema/img/logo.jpg" class="img-thumbnail">-->
               </div>
               <div class="col-lg-6">
                 <div class="p-5">

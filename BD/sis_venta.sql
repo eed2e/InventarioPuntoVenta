@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-01-2021 a las 19:39:38
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.9
+-- Tiempo de generación: 08-04-2021 a las 00:38:27
+-- Versión del servidor: 10.4.8-MariaDB
+-- Versión de PHP: 7.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,7 +26,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE PROCEDURE `actualizar_precio_producto` (IN `n_cantidad` INT,  IN `codigo` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_precio_producto` (IN `n_cantidad` INT, IN `codigo` INT)  BEGIN
 DECLARE nueva_existencia int;
 
 
@@ -45,14 +46,14 @@ UPDATE producto SET existencia = nueva_existencia WHERE codproducto = codigo;
 SELECT nueva_existencia;
 END$$
 
-CREATE PROCEDURE `add_detalle_temp` (`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_detalle_temp` (`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50))  BEGIN
 DECLARE precio_actual decimal(10,2);
 SELECT precio INTO precio_actual FROM producto WHERE codproducto = codigo;
 INSERT INTO detalle_temp(token_user, codproducto, cantidad, precio_venta) VALUES (token_user, codigo, cantidad, precio_actual);
 SELECT tmp.correlativo, tmp.codproducto, p.descripcion, tmp.cantidad, tmp.precio_venta FROM detalle_temp tmp INNER JOIN producto p ON tmp.codproducto = p.codproducto WHERE tmp.token_user = token_user;
 END$$
 
-CREATE PROCEDURE `data` ()  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `data` ()  BEGIN
 DECLARE usuarios int;
 DECLARE clientes int;
 DECLARE proveedores int;
@@ -68,12 +69,12 @@ SELECT usuarios, clientes, proveedores, productos, ventas;
 
 END$$
 
-CREATE PROCEDURE `del_detalle_temp` (`id_detalle` INT, `token` VARCHAR(50))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_detalle_temp` (`id_detalle` INT, `token` VARCHAR(50))  BEGIN
 DELETE FROM detalle_temp WHERE correlativo = id_detalle;
 SELECT tmp.correlativo, tmp.codproducto, p.descripcion, tmp.cantidad, tmp.precio_venta FROM detalle_temp tmp INNER JOIN producto p ON tmp.codproducto = p.codproducto WHERE tmp.token_user = token;
 END$$
 
-CREATE PROCEDURE `procesar_venta` (IN `cod_usuario` INT, IN `cod_cliente` INT, IN `token` VARCHAR(50))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `procesar_venta` (IN `cod_usuario` INT, IN `cod_cliente` INT, IN `token` VARCHAR(50))  BEGIN
 DECLARE factura INT;
 DECLARE registros INT;
 DECLARE total DECIMAL(10,2);
@@ -204,6 +205,18 @@ CREATE TABLE `entradas` (
   `usuario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `entradas`
+--
+
+INSERT INTO `entradas` (`correlativo`, `codproducto`, `fecha`, `cantidad`, `precio`, `usuario_id`) VALUES
+(1, 1, '2021-04-06 16:45:35', 1, '0.00', 1),
+(2, 1, '2021-04-06 16:45:53', 50, '0.00', 1),
+(3, 10, '2021-04-07 12:25:55', 5, '0.00', 1),
+(4, 12, '2021-04-07 13:28:47', 8, '0.00', 1),
+(5, 30, '2021-04-07 16:58:39', 7, '0.00', 1),
+(6, 7, '2021-04-07 16:58:46', 5, '0.00', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -231,18 +244,19 @@ CREATE TABLE `producto` (
   `proveedor` int(11) NOT NULL,
   `precio` decimal(10,2) NOT NULL,
   `existencia` int(11) NOT NULL,
-  `usuario_id` int(11) NOT NULL
+  `usuario_id` int(11) NOT NULL,
+  `imagen` varchar(999) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`codproducto`, `descripcion`, `proveedor`, `precio`, `existencia`, `usuario_id`) VALUES
-(1, 'Laptop lenovo', 1, '1560.00', 49, 2),
-(2, 'Televisor', 1, '2500.00', 79, 1),
-(6, 'Impresora', 1, '800.00', 0, 1),
-(7, 'Gaseosa', 3, '1500.00', 5, 1);
+INSERT INTO `producto` (`codproducto`, `descripcion`, `proveedor`, `precio`, `existencia`, `usuario_id`, `imagen`) VALUES
+(1, 'Laptop lenovo', 1, '1560.00', 100, 2, ''),
+(2, 'Televisor', 1, '2500.00', 79, 1, ''),
+(6, 'Impresora', 1, '800.00', 0, 1, ''),
+(7, 'Gaseosa', 3, '1500.00', 10, 1, '');
 
 -- --------------------------------------------------------
 
@@ -405,7 +419,7 @@ ALTER TABLE `detalle_temp`
 -- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `correlativo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `correlativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
@@ -417,7 +431,7 @@ ALTER TABLE `factura`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`

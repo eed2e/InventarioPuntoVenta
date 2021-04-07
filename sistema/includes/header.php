@@ -57,17 +57,18 @@ if ($result_data > 0) {
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
 			<div class="logo">
-				<a href="index.php" class="simple-text logo-mini">
+				<!--<a href="index.php" class="simple-text logo-mini">
 					.
 				</a>
 				<a href="index.php" class="simple-text logo-normal">
 				DigitalNet
-				</a>
+				</a>-->
+				DigitalNet
 			</div>
 			<div class="sidebar-wrapper" id="sidebar-wrapper">
 				<ul class="nav">
 					<li class="">
-						<a href="nueva_venta.php">
+						<!--<a href="nueva_venta.php">-->
 							<i class="now-ui-icons design_app"></i>
 							<p>Ventas</p>
 						</a>
@@ -79,13 +80,13 @@ if ($result_data > 0) {
 						</a>
 					</li>
 					<li>
-						<a href="lista_cliente.php">
+						<!--<a href="lista_cliente.php">-->
 							<i class="now-ui-icons location_map-big"></i>
 							<p>Clientes</p>
 						</a>
 					</li>
 					<li>
-						<a href="lista_usuarios.php">
+						<!--<a href="lista_usuarios.php">-->
 							<i class="now-ui-icons ui-1_bell-53"></i>
 							<p>Usuarios</p>
 						</a>
