@@ -10,10 +10,12 @@
         $tips = 'jpg';
         $type = array ('image/jpg' => 'jpg');
         $id = $_POST['producto'];
+        $id = preg_replace('([^A-Za-z0-9])', '', $id);
+        
         
         $nombrefoto1 = $_FILES['image']['name'];
         $ruta1 = $_FILES['image']['tmp_name'];
-        $name = $id.'.'.$tips;
+        $name = $id.'A.'.$tips;
         if(is_uploaded_file($ruta1)){
             $destino = "imagenes_inv/".$name;
             copy($ruta1,$destino);

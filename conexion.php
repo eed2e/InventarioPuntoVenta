@@ -1,9 +1,9 @@
 <?php
 
     $host = "localhost";
-    $user = "root";
-    $clave = "";
-    $bd = "sis_venta";
+    $user = "inventar_1";
+    $clave = "12345";
+    $bd = "inventar_sis_venta";
 
     $conexion = mysqli_connect($host,$user,$clave,$bd);
     if (mysqli_connect_errno()){

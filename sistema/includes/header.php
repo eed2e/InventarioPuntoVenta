@@ -42,7 +42,7 @@ if ($result_data > 0) {
 	<link rel="icon" type="image/png" href="../assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>
-		Sistema de Venta
+		Sistema de Inventario 
 	</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<!-- CSS Files -->
@@ -70,7 +70,7 @@ if ($result_data > 0) {
 					<li class="">
 						<!--<a href="nueva_venta.php">-->
 							<i class="now-ui-icons design_app"></i>
-							<p>Ventas</p>
+							<p>Pedidos</p>
 						</a>
 					</li>
 					<li>
@@ -80,9 +80,9 @@ if ($result_data > 0) {
 						</a>
 					</li>
 					<li>
-						<!--<a href="lista_cliente.php">-->
+						<!--<a href="lista_cliente.php">
 							<i class="now-ui-icons location_map-big"></i>
-							<p>Clientes</p>
+							<p>Clientes</p>-->
 						</a>
 					</li>
 					<li>
@@ -113,7 +113,7 @@ if ($result_data > 0) {
 								<span class="navbar-toggler-bar bar3"></span>
 							</button>
 						</div>
-						<a class="navbar-brand" href="#">Sistema Venta</a>
+						<a class="navbar-brand" href="#">Sistema Inventario</a>
 						<strong><?php echo fechaPeru(); ?></strong>
 					</div>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">

@@ -4,6 +4,7 @@ if (!empty($_GET['id'])) {
     $codproducto = $_GET['id'];
     $query_delete = mysqli_query($conexion, "DELETE FROM producto WHERE codproducto = $codproducto");
     mysqli_close($conexion);
+    echo "si entra";
     header("location: lista_productos.php");
 }
 ?>
