@@ -15,14 +15,15 @@
 						<tr>
 							<th>Id</th>
 							<th>Fecha</th>
-							<th>Total</th>
+							<th>Nombre del Tecnico</th>
+							<th>ID Tecnico</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php
 						require "../conexion.php";
-						$query = mysqli_query($conexion, "SELECT nofactura, fecha,codcliente, totalfactura, estado FROM factura ORDER BY nofactura DESC");
+						$query = mysqli_query($conexion, "SELECT f.nofactura, f.fecha, f.codcliente, f.totalfactura, f.estado, c.dni, c.nombre FROM factura f INNER JOIN cliente c  ON f.codcliente =c.dni");
 						mysqli_close($conexion);
 						$cli = mysqli_num_rows($query);
 
@@ -32,7 +33,8 @@
 								<tr>
 									<td><?php echo $dato['nofactura']; ?></td>
 									<td><?php echo $dato['fecha']; ?></td>
-									<td><?php echo $dato['totalfactura']; ?></td>
+									<td><?php echo $dato['nombre']; ?></td>
+									<td><?php echo $dato['codcliente']; ?></td>
 									<td>
 										<button type="button" class="btn btn-primary view_factura" cl="<?php echo $dato['codcliente'];  ?>" f="<?php echo $dato['nofactura']; ?>">Ver</button>
 									</td>

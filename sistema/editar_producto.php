@@ -3,14 +3,45 @@ include_once "includes/header.php";
 include "../conexion.php";
 if (!empty($_POST)) {
   $alert = "";
-  if (empty($_POST['producto'])) {
-    $alert = '<div class="alert alert-primary" role="alert">
-              Todo los campos son requeridos
-            </div>';
+      if (empty($_POST['producto']) ) {
+      $alert = '<div class="alert alert-danger" role="alert">
+                Todo los campos son obligatorios
+              </div>';
   } else {
-    $codproducto = $_GET['id'];
-    $producto = $_POST['producto'];
-    $query_update = mysqli_query($conexion, "UPDATE producto SET descripcion = '$producto' WHERE codproducto = $codproducto");
+       
+     
+           
+        $tips = 'jpg';
+        $type = array ('image/jpg' => 'jpg');
+        $id = $_POST['producto'];
+        $id = preg_replace('([^A-Za-z0-9])', '', $id);
+        
+        $nombrefoto1 = $_FILES['image']['name'];
+        $ruta1 = $_FILES['image']['tmp_name'];
+        $name = $id.'.'.$tips;
+           
+        if(is_uploaded_file($ruta1)){
+            $destino = "imagenes_inv/".$name;
+            copy($ruta1,$destino);
+        }
+        $codproducto = $_GET['id'];
+        $producto = $_POST['producto'];
+          
+          if($destino==""){
+               $query_update = mysqli_query($conexion, "UPDATE producto SET descripcion = '$producto' WHERE codproducto = $codproducto");
+              if ($query_update) {
+                  $alert = '<div class="alert alert-primary" role="alert">
+                     Modificado
+                    </div>';
+    } else {
+      $alert = '<div class="alert alert-primary" role="alert">
+                Error al Modificar
+              </div>';
+    }
+          }else{
+          
+          
+    $query_update = mysqli_query($conexion, "UPDATE producto SET descripcion = '$producto', imagen = '$destino' WHERE codproducto = $codproducto");
     if ($query_update) {
       $alert = '<div class="alert alert-primary" role="alert">
               Modificado
@@ -20,7 +51,8 @@ if (!empty($_POST)) {
                 Error al Modificar
               </div>';
     }
-  }
+  
+}}
 }
 
 // Validar producto
@@ -32,7 +64,7 @@ if (empty($_REQUEST['id'])) {
   if (!is_numeric($id_producto)) {
     header("Location: lista_productos.php");
   }
-  $query_producto = mysqli_query($conexion, "SELECT p.codproducto, p.descripcion FROM producto p WHERE p.codproducto = $id_producto");
+  $query_producto = mysqli_query($conexion, "SELECT p.codproducto, p.descripcion,p.imagen FROM producto p WHERE p.codproducto = $id_producto");
   $result_producto = mysqli_num_rows($query_producto);
 
   if ($result_producto > 0) {
@@ -42,6 +74,8 @@ if (empty($_REQUEST['id'])) {
   }
 }
 ?>
+       }
+      
 <!-- Begin Page Content -->
 <div class="content">
 
@@ -52,9 +86,10 @@ if (empty($_REQUEST['id'])) {
           Modificar producto
         </div>
         <div class="card-body">
-          <form action="" method="post">
+          <form action="" method="post" enctype="multipart/form-data">
             <?php echo isset($alert) ? $alert : ''; ?>
-            
+            <td><img width="130px" height="110px" src =" <?php echo  $data_producto['imagen'] ?> "></td>
+            <input type="file" name="image" id="image">
             <div class="form-group">
               <label for="producto">Producto</label>
               <input type="text" class="form-control" placeholder="Ingrese nombre del producto" name="producto" id="producto" value="<?php echo $data_producto['descripcion']; ?>">
